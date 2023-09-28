@@ -1,0 +1,75 @@
+#root {
+  text-align: center;
+}
+
+span {
+  color: #974fd0;
+}
+
+.homeButton {
+  background-color: #974fd0;
+  color: #faf9fb;
+  cursor: pointer;
+}
+
+.contains {
+  border: 2px solid #b8b6b6;
+}
+
+@media (width > 768px) {
+  .contains {
+    padding: 10px;
+  }
+}
+
+.shine {
+  color: #974fd0;
+}
+
+.delete {
+  border: 2px solid #974fd0;
+  cursor: pointer;
+}
+
+.taskInput {
+  border: 2px solid #9c9c9c;
+}
+
+.puddy {
+  background-color: white;
+  color: #9c9c9c;
+}
+
+.taskTitle {
+  bottom: 70%;
+}
+
+.description {
+  bottom: 84%;
+}
+
+.aTag {
+  bottom: 30%;
+}
+
+.dropdown-options {
+  list-style: none;
+  text-align: right;
+  cursor: pointer;
+  background-color: whitesmoke;
+}
+
+.dropdown-options li {
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.dropdown-options li:hover {
+  background-color: #b8b6b6;
+  color: white;
+}
+
+.done{
+  color: white;
+  background-color: #974fd0;
+}
