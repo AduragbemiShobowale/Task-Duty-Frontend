@@ -1,30 +1,25 @@
-import React, { useEffect, useState } from "react";
-import {
-  MdKeyboardArrowLeft,
-  MdOutlineKeyboardArrowDown,
-} from "react-icons/md";
-import { Link, useFetcher, useNavigate, useParams } from "react-router-dom";
-import Dropdown from "../components/Dropdown";
+import { useEffect, useState } from "react";
+import { MdKeyboardArrowLeft } from "react-icons/md";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Dropdown1 from "../components/Dropdown1";
 import { useFetch } from "../hooks/useFetch";
 import toast from "react-hot-toast";
 
-const EditTask = (baseURL) => {
+const EditTask = ({ baseURL }) => {
   const { id } = useParams();
   console.log(id);
 
-  const { data, loading, error } = useFetch(
-    `${baseURL}/api/task/${id}`
-  );
+  const { data, loading } = useFetch(`${baseURL}/api/task/${id}`);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [tag, setTag] = useState("urgent");
+  const [tag, setTag] = useState(""); // Initialize with an empty string
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
     if (data) {
       setTitle(data.title);
       setDescription(data.description);
+      setTag(data.tag); // Set the tag state with data fetched from the API
     }
   }, [data]);
 
@@ -50,16 +45,21 @@ const EditTask = (baseURL) => {
 
     const res = await fetch(`${baseURL}/api/task/${id}`, options);
 
-    const data = await res.json();
+    const responseData = await res.json();
 
     if (res.status === 200) {
-      toast.success(data.message);
+      toast.success(responseData.message);
       navigate("/body");
-      return;
+    } else {
+      toast.error("Something went wrong");
     }
-
-    toast.error("Something went wrong");
+    setSending(false);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <Link
@@ -110,8 +110,8 @@ const EditTask = (baseURL) => {
               value={description}
             ></textarea>
           </div>
-          {/* <Dropdown /> */}
-          <div>{<Dropdown1 setTag={setTag} />}</div>
+          <div>{<Dropdown1 setTag={setTag} initialTag={tag} />}</div>{" "}
+          {/* Pass initialTag prop to Dropdown1 */}
         </div>
         <div className="mx-5">
           <button

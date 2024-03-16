@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const Dropdown1 = ({ setTag }) => {
+const Dropdown1 = ({ setTag, initialTag }) => {
   const [options, setOptions] = useState(["urgent", "important"]);
-  const [selected, setSelected] = useState("urgent");
+  const [selected, setSelected] = useState(initialTag || "urgent");
   const [isOpen, setIsOpen] = useState(false);
+
+  // Update selected value when initialTag prop changes
+  useEffect(() => {
+    setSelected(initialTag || "urgent");
+  }, [initialTag]);
+
   return (
     <div>
       <p
